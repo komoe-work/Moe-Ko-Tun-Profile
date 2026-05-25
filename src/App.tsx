@@ -42,7 +42,7 @@ import {
 export default function App() {
   // UI State Managers
   const [lang, setLang] = useState<"en" | "mm">("mm");
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSubjectFilter, setSelectedSubjectFilter] = useState<string>("all");
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
@@ -97,12 +97,16 @@ export default function App() {
   const toggleTheme = () => {
     const nextTheme = theme === "light" ? "dark" : "light";
     setTheme(nextTheme);
-    if (nextTheme === "dark") {
+  };
+
+  // Synchronize HTML root element class with the current state
+  useEffect(() => {
+    if (theme === "dark") {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
-  };
+  }, [theme]);
 
   // Dynamic Filtering for the Project / Curriculum Gallery
   const filteredCourses = useMemo(() => {
@@ -299,7 +303,7 @@ export default function App() {
           
           {/* L1: Left Sticky Panel (Interactive side directory) */}
           <aside className="lg:col-span-3 sticky top-24 space-y-6 hidden lg:block print:hidden pb-10">
-            <div className={`p-5 rounded border transition-colors duration-300 ${theme === 'dark' ? 'bg-[#1e293b] border-slate-750' : 'bg-white border-slate-200'} shadow-sm`}>
+            <div className={`p-5 rounded border transition-colors duration-300 ${theme === 'dark' ? 'bg-[#1e293b] border-slate-700' : 'bg-white border-slate-200'} shadow-sm`}>
               
               <div className="text-center mb-6">
                 <div className="w-20 h-20 mx-auto rounded-sm bg-gradient-to-tr from-[#818cf8] to-[#4f46e5] text-white font-extrabold text-2xl flex items-center justify-center shadow-md mb-3">
@@ -373,7 +377,7 @@ export default function App() {
             {/* Mobile Header Hero (Hidden in desktop and print) */}
             <div className={`p-6 rounded border text-center relative overflow-hidden lg:hidden print:hidden transition-colors duration-300 ${theme === 'dark' ? 'bg-[#1e293b] border-slate-800' : 'bg-white border-slate-200'}`}>
               <div className="absolute top-0 right-0 w-24 h-24 bg-[#818cf8]/15 rounded blur-2xl pointer-events-none" />
-              <div className="w-16 h-16 mx-auto rounded bg-slate-100 dark:bg-slate-850 flex items-center justify-center font-bold text-[#818cf8] text-xl border border-slate-200 dark:border-slate-700 mb-3 shadow-inner">
+              <div className="w-16 h-16 mx-auto rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-[#818cf8] text-xl border border-slate-200 dark:border-slate-700 mb-3 shadow-inner">
                 MK
               </div>
               <h2 className="text-xl font-black text-slate-900 dark:text-slate-50">
@@ -574,7 +578,7 @@ export default function App() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: idx * 0.1 }}
-                    className={`p-6 rounded border transition-colors duration-300 relative ${theme === 'dark' ? 'bg-[#1e293b] border-slate-705' : 'bg-white border-slate-200'}`}
+                    className={`p-6 rounded border transition-colors duration-300 relative ${theme === 'dark' ? 'bg-[#1e293b] border-slate-700' : 'bg-white border-slate-200'}`}
                   >
                     <div className="absolute top-4 right-4 text-xs font-extrabold text-[#818cf8] bg-[#818cf8]/10 px-3 py-1 rounded border border-[#818cf8]/20 font-sans">
                       {edu.year}
@@ -621,7 +625,7 @@ export default function App() {
                 {CERTIFICATIONS.map((cert) => (
                   <div
                     key={cert.id}
-                    className={`p-5 rounded border flex flex-col justify-between transition-colors duration-300 ${theme === 'dark' ? 'bg-[#1e293b] border-slate-705' : 'bg-white border-slate-205'}`}
+                    className={`p-5 rounded border flex flex-col justify-between transition-colors duration-300 ${theme === 'dark' ? 'bg-[#1e293b] border-slate-700' : 'bg-white border-slate-200'}`}
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3">
@@ -697,7 +701,7 @@ export default function App() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className={`w-full pl-10 pr-4 py-2 text-xs sm:text-sm rounded border focus:outline-none focus:ring-1 focus:ring-[#818cf8] focus:border-[#818cf8] transition-colors ${
-                    theme === 'dark' ? 'bg-[#1e293b] border-slate-700 text-slate-100' : 'bg-white border-slate-205'
+                    theme === 'dark' ? 'bg-[#1e293b] border-slate-700 text-slate-100' : 'bg-white border-slate-200'
                   }`}
                 />
                 {searchQuery && (
@@ -727,7 +731,7 @@ export default function App() {
                           isExpanded 
                             ? 'md:col-span-2 ring-2 ring-[#818cf8]' 
                             : 'hover:shadow-md'
-                        } ${theme === 'dark' ? 'bg-[#1e293b] border-slate-705' : 'bg-white border-slate-205'}`}
+                        } ${theme === 'dark' ? 'bg-[#1e293b] border-slate-700' : 'bg-white border-slate-200'}`}
                       >
                         <div>
                           
@@ -750,7 +754,7 @@ export default function App() {
                           </h4>
                           <p className="text-xs text-slate-400 font-medium mt-1 font-sans">Level: {course.level}</p>
 
-                          <p className="text-xs sm:text-sm text-slate-650 dark:text-slate-300 mt-3 leading-relaxed font-sans">
+                          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-3 leading-relaxed font-sans">
                             {lang === "mm" ? course.myanmarDescription : course.description}
                           </p>
 
@@ -890,7 +894,7 @@ export default function App() {
                     <h4 className="text-base font-extrabold text-slate-900 dark:text-slate-100 leading-tight font-sans">
                       {lang === "mm" ? exp.roleMM : exp.role}
                     </h4>
-                    <p className="text-xs text-indigo-505 dark:text-indigo-305 text-[#818cf8] font-semibold mt-0.5 font-sans">
+                    <p className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mt-0.5 font-sans">
                       {lang === "mm" ? exp.institutionMM : exp.institution}
                     </p>
 
@@ -930,7 +934,7 @@ export default function App() {
               </p>
 
               {/* Sandbox Container */}
-              <div className={`p-6 sm:p-8 rounded border transition-all duration-300 ${theme === 'dark' ? 'bg-[#1e293b]/90 border-slate-707' : 'bg-white border-slate-205'}`}>
+              <div className={`p-6 sm:p-8 rounded border transition-all duration-300 ${theme === 'dark' ? 'bg-[#1e293b]/90 border-slate-700' : 'bg-white border-slate-200'}`}>
                 
                 {/* Formulas List selectors */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 font-sans">
@@ -974,7 +978,7 @@ export default function App() {
                   return (
                     <div className="p-4 sm:p-6 rounded bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 font-sans">
                       
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-late-200 dark:border-slate-800 pb-3 mb-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3 mb-4">
                         <div>
                           <span className="text-[10px] font-bold text-[#818cf8] uppercase tracking-widest block font-sans">Interactive Sandbox Solver</span>
                           <h4 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-stone-100 mt-1 font-sans">
@@ -1011,12 +1015,12 @@ export default function App() {
                           step="1"
                           value={formulaValue}
                           onChange={(e) => setFormulaValue(Number(e.target.value))}
-                          className="w-full accent-[#818cf8] cursor-ew-resize bg-slate-200 dark:bg-slate-850 rounded appearance-none h-1 focus:outline-none"
+                          className="w-full accent-[#818cf8] cursor-ew-resize bg-slate-200 dark:bg-slate-800 rounded appearance-none h-1 focus:outline-none"
                         />
 
                         {/* Interactive gauge / visual response */}
                         <div className="bg-white dark:bg-[#1e293b] p-4 rounded border border-slate-100 dark:border-slate-800 text-center shadow-inner">
-                          <span className="text-[10px] font-bold tracking-wider text-slate-450 dark:text-slate-400 block uppercase font-sans">
+                          <span className="text-[10px] font-bold tracking-wider text-slate-500 dark:text-slate-400 block uppercase font-sans">
                             {calculatedFormulaResult.label}
                           </span>
                           <span className="text-base sm:text-lg font-black text-emerald-500 dark:text-emerald-400 mt-1 block font-mono">
@@ -1031,8 +1035,8 @@ export default function App() {
                 })()}
 
                 {/* Academic quote breakdown */}
-                <div className="mt-6 pt-6 border-t border-slate-105 dark:border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 bg-indigo-500/[0.02] dark:bg-slate-800/20 rounded border border-slate-205 dark:border-slate-800 font-sans">
+                <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 bg-indigo-500/[0.02] dark:bg-slate-800/20 rounded border border-slate-200 dark:border-slate-800 font-sans">
                     <h5 className="text-xs font-extrabold text-[#818cf8] flex items-center space-x-1.5 mb-2 font-sans">
                       <Zap className="w-3.5 h-3.5" />
                       <span>{lang === "mm" ? "သီအိုရီဒဿန (The Philosophy)" : "Visual Concept Pillar"}</span>
@@ -1078,7 +1082,7 @@ export default function App() {
                 
                 {/* Left Panel: Contact numbers & hours */}
                 <div className={`md:col-span-5 p-6 rounded border flex flex-col justify-between transition-colors duration-300 ${
-                  theme === 'dark' ? 'bg-[#1e293b] border-slate-707' : 'bg-white border-slate-205'
+                  theme === 'dark' ? 'bg-[#1e293b] border-slate-700' : 'bg-white border-slate-200'
                 }`}>
                   <div className="space-y-6">
                     <div>
@@ -1094,7 +1098,7 @@ export default function App() {
                       <div className="flex items-start space-x-3">
                         <Phone className="w-4 h-4 text-[#818cf8] shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-bold text-slate-850 dark:text-neutral-100 font-sans">{lang === "mm" ? "ဆက်သွယ်ရန်ဖုန်း" : "Call Phone Numbers"}</p>
+                          <p className="font-bold text-slate-800 dark:text-neutral-100 font-sans">{lang === "mm" ? "ဆက်သွယ်ရန်ဖုန်း" : "Call Phone Numbers"}</p>
                           {PERSONAL_INFO.phones.map((phone, i) => (
                             <p key={i} className="font-mono mt-0.5 hover:text-indigo-500 cursor-pointer" onClick={() => handleCopy(phone, "Phone")}>
                               {phone}
@@ -1106,7 +1110,7 @@ export default function App() {
                       <div className="flex items-start space-x-3">
                         <Mail className="w-4 h-4 text-[#818cf8] shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-bold text-slate-850 dark:text-neutral-100 font-sans">Personal Email</p>
+                          <p className="font-bold text-slate-800 dark:text-neutral-100 font-sans">Personal Email</p>
                           <p className="mt-0.5 font-mono text-[#818cf8] hover:text-[#6a75f7] underline-offset-4 hover:underline cursor-pointer" onClick={() => handleCopy(PERSONAL_INFO.emails[0], "Email")}>
                             {PERSONAL_INFO.emails[0]}
                           </p>
@@ -1116,7 +1120,7 @@ export default function App() {
                       <div className="flex items-start space-x-3">
                         <MapPin className="w-4 h-4 text-[#818cf8] shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-bold text-slate-850 dark:text-neutral-100 font-sans">Specialist Residence</p>
+                          <p className="font-bold text-slate-800 dark:text-neutral-100 font-sans">Specialist Residence</p>
                           <p className="mt-0.5 leading-relaxed text-slate-500 dark:text-slate-400 font-normal font-sans">
                             {lang === "mm" ? PERSONAL_INFO.addressMM : PERSONAL_INFO.address}
                           </p>
@@ -1126,7 +1130,7 @@ export default function App() {
                   </div>
 
                   {/* QR / Online classes visual representation card */}
-                  <div className="mt-8 p-4 rounded bg-slate-50 dark:bg-slate-900 border border-slate-105 dark:border-slate-850 flex items-center space-x-3">
+                  <div className="mt-8 p-4 rounded bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center space-x-3">
                     <div className="w-10 h-10 rounded bg-[#818cf8]/10 text-[#818cf8] flex items-center justify-center font-bold font-mono text-sm">
                       YGN
                     </div>
@@ -1142,7 +1146,7 @@ export default function App() {
                 <form 
                   onSubmit={handleSubmitInquiry}
                   className={`md:col-span-7 p-6 rounded border space-y-4 transition-colors duration-300 font-sans ${
-                    theme === 'dark' ? 'bg-[#1e293b] border-slate-707' : 'bg-white border-slate-205'
+                    theme === 'dark' ? 'bg-[#1e293b] border-slate-700' : 'bg-white border-slate-200'
                   }`}
                 >
                   <div>
@@ -1165,7 +1169,7 @@ export default function App() {
                       value={formInterest}
                       onChange={(e) => setFormInterest(e.target.value)}
                       className={`w-full text-xs font-semibold p-2.5 rounded border mt-1 focus:ring-1 focus:ring-[#818cf8] focus:outline-none transition-all font-sans ${
-                        theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-205 text-slate-700'
+                        theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-200 text-slate-700'
                       }`}
                     >
                       {PROJECTS_GALLERY.map((course) => (
@@ -1184,7 +1188,7 @@ export default function App() {
                     <input
                       type="text"
                       className={`w-full p-2 text-xs rounded border mt-1 focus:ring-1 focus:ring-[#818cf8] focus:outline-none transition-all font-sans ${
-                        theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-205 text-slate-700'
+                        theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-200 text-slate-700'
                       }`}
                       placeholder={lang === "mm" ? "ဥပမာ - မောင်မောင် သို့မဟုတ် ဦးကျော်" : "e.g. Mg Mg / U Kyaw"}
                       value={formName}
@@ -1201,7 +1205,7 @@ export default function App() {
                     <input
                       type="text"
                       className={`w-full p-2 text-xs rounded border mt-1 focus:ring-1 focus:ring-[#818cf8] focus:outline-none transition-all font-sans ${
-                        theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-205 text-slate-700'
+                        theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-200 text-slate-700'
                       }`}
                       placeholder="e.g. 09-xxxxxxxx or name@email.com"
                       value={formContact}
@@ -1218,7 +1222,7 @@ export default function App() {
                     <textarea
                       rows={3}
                       className={`w-full p-2 text-xs rounded border mt-1 focus:ring-1 focus:ring-[#818cf8] focus:outline-none transition-all font-sans ${
-                        theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-205 text-slate-700'
+                        theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-200 text-slate-700'
                       }`}
                       placeholder={lang === "mm" ? "ဒီစာသင်နှစ်မှာ IGCSE Physics အမှတ်မြှင့်တင်ချင်လို့ပါ..." : "Request schedule, private tutoring rates, or lesson booklets detail..."}
                       value={formMessage}
