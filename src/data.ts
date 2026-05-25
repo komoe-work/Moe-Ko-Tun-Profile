@@ -57,10 +57,10 @@ export const PERSONAL_INFO = {
   nationalityMM: "မြန်မာ (ဗုဒ္ဓဘာသာ)",
   nrc: "12/TAKANA(N)070317",
   nrcMM: "၁၂/သကန(နိုင်)၀၇၀၃၁၇",
-  phones: ["09450007861", "09778007761"],
+  phones: ["09774370769", "09443173459"],
   emails: ["moekotun88@gmail.com"],
-  address: "No. (23), (5) Road, Shwe Lin Pan New Town, Hlaing Tharyar Township, Yangon, Myanmar.",
-  addressMM: "အမှတ် (၂၃)၊ (၅)လမ်း၊ ရွှေလင်ပန်းမြို့သစ်၊ လှိုင်သာယာမြို့နယ်၊ ရန်ကုန်တိုင်းဒေသကြီး။",
+  address: "Address (1) 3/5 Pan Ni Ta Street, Shin Saw Pu Block, Sanchaung, Yangon. (2) 23, 5th Floor, Myaung Mya Street, Middle Tune Taw Block, Sanchaung, Yangon.",
+  addressMM: "လိပ်စာ (၁) ၃/၅၊ ပဏ္ဍိတလမ်း၊ ရှင်စောပုရပ်ကွက်၊ စမ်းချောင်းမြို့နယ်၊ ရန်ကုန်။ (၂) အမှတ် (၂၃)၊ ၅ လွှာ၊ မြောင်းမြလမ်း၊ ကျွန်းတောအလယ်ရပ်ကွက်၊ စမ်းချောင်းမြို့နယ်၊ ရန်ကုန်။",
   titleMM: "သင်္ချာ နှင့် ရူပဗေဒ အဆင့်မြင့်ပညာရေး အထူးကုဆရာကြီး",
   titleEN: "Mathematics & Physics Education Specialist (GCE A-Level & IGCSE)",
   experienceYears: 16
